@@ -1,23 +1,27 @@
 // utils
-function $(selector) {
+function $(selector:string) {
+  // DOM객체 접근
   return document.querySelector(selector);
 }
-function getUnixTimestamp(date) {
+
+function getUnixTimestamp(date: Date) {
   return new Date(date).getTime();
 }
 
 // DOM
-const confirmedTotal = $('.confirmed-total');
-const deathsTotal = $('.deaths');
-const recoveredTotal = $('.recovered');
-const lastUpdatedTime = $('.last-updated-time');
+
+let a : Element | HTMLElement | HTMLParagraphElement
+const confirmedTotal = $('.confirmed-total') as HTMLSpanElement;
+const deathsTotal= $('.deaths') as HTMLParagraphElement ;
+const recoveredTotal = $('.recovered')as HTMLParagraphElement;
+const lastUpdatedTime = $('.last-updated-time') as HTMLParagraphElement;
 const rankList = $('.rank-list');
 const deathsList = $('.deaths-list');
 const recoveredList = $('.recovered-list');
 const deathSpinner = createSpinnerElement('deaths-spinner');
 const recoveredSpinner = createSpinnerElement('recovered-spinner');
 
-function createSpinnerElement(id) {
+function createSpinnerElement(id:string) {
   const wrapperDiv = document.createElement('div');
   wrapperDiv.setAttribute('id', id);
   wrapperDiv.setAttribute(
@@ -37,12 +41,18 @@ let isDeathLoading = false;
 let isRecoveredLoading = false;
 
 // api
-function fetchCovidSummary() {
+function fetchCovidSummary() : AxiosPromise<> {
   const url = 'https://api.covid19api.com/summary';
   return axios.get(url);
 }
 
-function fetchCountryInfo(countryCode, status) {
+enum CovideStatus {
+  Confirmed = "confirmed",
+  Recovered = "recovered",
+  Deaths = "deaths"
+
+}
+function fetchCountryInfo(countryCode:string, status:CovideStatus) {
   // params: confirmed, recovered, deaths
   const url = `https://api.covid19api.com/country/${countryCode}/status/${status}`;
   return axios.get(url);
@@ -59,7 +69,7 @@ function initEvents() {
   rankList.addEventListener('click', handleListClick);
 }
 
-async function handleListClick(event) {
+async function handleListClick(event:any) {
   let selectedId;
   if (
     event.target instanceof HTMLParagraphElement ||
@@ -77,14 +87,14 @@ async function handleListClick(event) {
   clearRecoveredList();
   startLoadingAnimation();
   isDeathLoading = true;
-  const { data: deathResponse } = await fetchCountryInfo(selectedId, 'deaths');
+  const { data: deathResponse } = await fetchCountryInfo(selectedId, CovideStatus.Deaths);
   const { data: recoveredResponse } = await fetchCountryInfo(
     selectedId,
-    'recovered',
+    CovideStatus.Recovered,
   );
   const { data: confirmedResponse } = await fetchCountryInfo(
     selectedId,
-    'confirmed',
+    CovideStatus.Confirmed,
   );
   endLoadingAnimation();
   setDeathsList(deathResponse);
@@ -95,7 +105,7 @@ async function handleListClick(event) {
   isDeathLoading = false;
 }
 
-function setDeathsList(data) {
+function setDeathsList(data:any) {
   const sorted = data.sort(
     (a, b) => getUnixTimestamp(b.Date) - getUnixTimestamp(a.Date),
   );

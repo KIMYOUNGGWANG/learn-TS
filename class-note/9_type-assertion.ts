@@ -8,4 +8,7 @@ const b = z as string;
 // DOM API에서 제일 많이 사용된다.
 <div id="app">"hi"</div>;
 
-const div = document.querySelector("div");
+const div = document.querySelector('div') as HTMLDivElement;
+if(div){
+  div.innerText;
+}

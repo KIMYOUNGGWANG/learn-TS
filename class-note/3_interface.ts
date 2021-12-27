@@ -51,3 +51,19 @@ const obj2:StringRegexDictionary = {
 Object.keys(obj2).forEach((value)=>{
     console.log(value)
 })
+
+// 인터페이스 확장
+interface Person {
+    name : string;
+    age : number;
+}
+
+interface Developer extends Person {
+    skill:string
+}
+
+const yg : Developer = {
+    name : "영광",
+    age : 29,
+    skill : "react"
+}

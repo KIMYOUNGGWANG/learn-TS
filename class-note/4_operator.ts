@@ -28,10 +28,12 @@ const askSomeone = (someone : Developer1 | Person1) => {
 }
 
 askSomeone({name : "YG",  age : 29})
-
+askSomeone({name : 'yg', skill : "react"})
 // intersection type(&연산자?)
 const askSomeone1 = (someone : Developer & Person) => {
     someone.name;
     someone.skill;
     someone.age;
 }
+
+askSomeone1({skill:"react",name : "yg",age:29})

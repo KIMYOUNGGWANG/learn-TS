@@ -21,3 +21,36 @@ developer1 = person1;
 person1 = developer1;
 
 // 구조적으로 큰 타입이 오른쪽, 작은 타입이 왼쪽에 있어야 지원이 가능하다.
+
+let add = (a:number) => {
+  // console.log(a)
+} 
+
+let sum = (a:number,b:number) => {
+// return a+b;
+}
+
+add = sum;
+sum = add;
+
+interface Empty<T>{
+  //..
+}
+let empty :Empty<string>='';
+let empty2 :Empty<number>='';
+
+empty = empty2;
+empty2= empty;
+
+interface NotEmpty<T> {
+  data:T;
+}
+
+var notEmpty1:NotEmpty<string>;
+var notEmpty2:NotEmpty<number>;
+
+notEmpty1 = notEmpty2;
+notEmpty2 = notEmpty1;
+
+
+
