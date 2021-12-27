@@ -13,7 +13,7 @@ const introduce = (): Developer | Person => {
 };
 
 const tony = introduce();
-console.log(tony.skill);
+console.log(tony.name);
 
 // tony는 Developer로 반환되었는지 Person으로 반환되었는지 모르기때문에
 // 공통적으로 가지고있는 name만 사용 가능.

@@ -12,24 +12,26 @@ const getC = (c = 10) => {
   return c + d;
 };
 
+// 타입 추론 기본 2
 interface Dropdown<T> {
   value: T;
   title: string;
 }
+var shoppingItem: Dropdown<string> = {
+  value: "abc",
+  title: "hello",
+};
+
+
+// 타입 추론 기본 3
 
 interface DetailedDropdown<K> extends Dropdown<K> {
-  description: string;
-  tag: K;
-  //value,
-  //title
+  description : string;
+  tag:K;
 }
+
 // DetailedDropdown<string>을 넣는다면 K에 모두 string이 들어간다.
 // extends한 interface에는 다른 타입을 넣어주고싶으면 k말고 다른타입 넣어주면 된다.
-
-// var shoppingItem: Dropdown<string> = {
-//   value: "abc",
-//   title: "hello",
-// };
 
 const detaildItem: DetailedDropdown<string> = {
   title: "abc",
@@ -40,3 +42,4 @@ const detaildItem: DetailedDropdown<string> = {
 
 // Best Common Type : 가장 근접한 타입을 추론(union)
 const arr = [1, 2, true];
+// arr = number | boolean[];
